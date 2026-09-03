@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Book Buddy — UX Reference</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,500&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink: #141a2e;
+    --ink-soft: #232b48;
+    --linen: #f1ece0;
+    --linen-dim: #e6e0d1;
+    --lamp: #d9a24a;
+    --lamp-deep: #b98338;
+    --ribbon: #4f7867;
+    --ribbon-deep: #3b5c4d;
+    --charcoal: #26241d;
+    --charcoal-soft: #5b5748;
+    --locked: #cfc9b8;
+  }
+
+  *{ box-sizing: border-box; }
+
+  body{
+    margin:0;
+    background: radial-gradient(ellipse at 20% -10%, #1d2542 0%, #0e1220 65%);
+    font-family: 'Work Sans', sans-serif;
+    color: var(--linen);
+    padding: 56px 32px 96px;
+    min-height: 100vh;
+  }
+
+  .intro{
+    max-width: 760px;
+    margin: 0 auto 64px;
+  }
+  .intro .eyebrow{
+    font-size: 13px;
+    color: var(--lamp);
+    margin: 0 0 10px;
+    font-weight: 500;
+  }
+  .intro h1{
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+    font-size: 44px;
+    line-height: 1.08;
+    margin: 0 0 16px;
+    letter-spacing: -0.01em;
+  }
+  .intro p{
+    font-size: 16px;
+    line-height: 1.6;
+    color: #c7cadb;
+    max-width: 54ch;
+    margin: 0;
+  }
+
+  .stage{
+    display: flex;
+    gap: 44px;
+    flex-wrap: wrap;
+    justify-content: center;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .screen-col{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 18px;
+  }
+  .screen-label{
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 15px;
+    color: #9aa0bd;
+  }
+
+  .phone{
+    width: 320px;
+    height: 672px;
+    background: #05070d;
+    border-radius: 42px;
+    padding: 12px;
+    box-shadow:
+      0 30px 60px -20px rgba(0,0,0,0.6),
+      0 0 0 1px rgba(255,255,255,0.04);
+    flex-shrink: 0;
+  }
+  .screen{
+    width: 100%;
+    height: 100%;
+    background: var(--ink);
+    border-radius: 30px;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+  }
+  .notch{
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90px;
+    height: 20px;
+    background: #05070d;
+    border-radius: 12px;
+    z-index: 10;
+  }
+
+  /* ---------- Shared chrome ---------- */
+  .status-space{ height: 34px; flex-shrink: 0; }
+
+  .topbar{
+    padding: 4px 20px 14px;
+    flex-shrink: 0;
+  }
+  .topbar-row{
+    display:flex;
+    align-items:center;
+    justify-content: space-between;
+  }
+  .app-title{
+    font-family: 'Fraunces', serif;
+    font-size: 21px;
+    font-weight: 500;
+  }
+  .icon-btn{
+    width: 34px; height: 34px;
+    border-radius: 50%;
+    background: rgba(241,236,224,0.08);
+    display:flex; align-items:center; justify-content:center;
+    font-size: 15px;
+  }
+
+  /* ---------- Screen 1: Library ---------- */
+  .library-body{
+    flex: 1;
+    padding: 4px 20px 20px;
+    overflow: hidden;
+  }
+  .continue-card{
+    background: linear-gradient(135deg, #2c3560, #1c2340);
+    border-radius: 18px;
+    padding: 16px 18px;
+    margin-bottom: 22px;
+    position: relative;
+    overflow: hidden;
+  }
+  .continue-card .tag{
+    font-size: 11.5px;
+    color: var(--lamp);
+    font-weight: 600;
+    margin-bottom: 6px;
+  }
+  .continue-card h3{
+    font-family: 'Fraunces', serif;
+    font-size: 19px;
+    font-weight: 500;
+    margin: 0 0 4px;
+  }
+  .continue-card .meta{
+    font-size: 12.5px;
+    color: #aeb3cc;
+    margin-bottom: 14px;
+  }
+  .progress-track{
+    height: 5px;
+    border-radius: 4px;
+    background: rgba(255,255,255,0.12);
+    overflow: hidden;
+  }
+  .progress-fill{
+    height: 100%;
+    width: 46%;
+    background: var(--lamp);
+    border-radius: 4px;
+  }
+  .continue-btn{
+    margin-top: 14px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--lamp);
+    color: #241a08;
+    font-weight: 600;
+    font-size: 13px;
+    padding: 9px 16px;
+    border-radius: 100px;
+  }
+
+  .section-label{
+    font-size: 12.5px;
+    color: #8d92ab;
+    font-weight: 500;
+    margin: 4px 0 12px;
+  }
+  .shelf-grid{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+  }
+  .book{
+    aspect-ratio: 2/3;
+    border-radius: 10px;
+    display:flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 8px;
+    font-family: 'Fraunces', serif;
+    font-size: 11.5px;
+    line-height: 1.25;
+  }
+  .book.b1{ background: linear-gradient(160deg, #6a4b3a, #3f2a20); }
+  .book.b2{ background: linear-gradient(160deg, #3b5c4d, #253c32); }
+  .book.b3{ background: linear-gradient(160deg, #5a4a72, #372a49); }
+  .book.b4{ background: linear-gradient(160deg, #7a5738, #4a341f); }
+  .book.b5{ background: linear-gradient(160deg, #47546e, #2b3346); }
+  .book.b6{ background: linear-gradient(160deg, #6e3f47, #43262b); }
+
+  /* ---------- Screen 2: Chapter map ---------- */
+  .book-hero{
+    padding: 4px 20px 18px;
+  }
+  .book-hero .kicker{
+    font-size: 12px;
+    color: #9aa0bd;
+    margin-bottom: 4px;
+  }
+  .book-hero h2{
+    font-family: 'Fraunces', serif;
+    font-size: 24px;
+    font-weight: 500;
+    margin: 0 0 14px;
+  }
+  .chip-row{
+    display:flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .chip{
+    font-size: 12px;
+    padding: 7px 13px;
+    border-radius: 100px;
+    background: rgba(241,236,224,0.09);
+    color: var(--linen);
+    white-space: nowrap;
+  }
+  .chip.primary{
+    background: var(--lamp);
+    color: #241a08;
+    font-weight: 600;
+  }
+
+  .chapter-list{
+    flex: 1;
+    background: var(--linen);
+    border-radius: 24px 24px 0 0;
+    padding: 20px 18px 90px;
+    overflow-y: auto;
+    color: var(--charcoal);
+  }
+  .chapter-list-title{
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--charcoal-soft);
+    margin-bottom: 12px;
+  }
+  .chapter-row{
+    display:flex;
+    align-items:center;
+    gap: 12px;
+    padding: 11px 4px;
+    border-bottom: 1px solid rgba(38,36,29,0.08);
+  }
+  .chapter-dot{
+    width: 26px; height: 26px;
+    border-radius: 50%;
+    display:flex; align-items:center; justify-content:center;
+    font-size: 12px;
+    font-weight: 600;
+    flex-shrink: 0;
+  }
+  .chapter-dot.done{ background: var(--ribbon); color: #eef4f0; }
+  .chapter-dot.current{ background: var(--lamp); color: #241a08; }
+  .chapter-dot.locked{ background: var(--locked); color: #8a8570; }
+  .chapter-text .name{ font-size: 14.5px; font-weight: 600; }
+  .chapter-text .sub{ font-size: 12px; color: var(--charcoal-soft); }
+  .chapter-row.locked .chapter-text .name{ color: #a19c8a; }
+  .chapter-row.locked .chapter-text .sub{ color: #b6b1a0; }
+
+  .ribbon-divider{
+    display:flex;
+    align-items:center;
+    gap: 10px;
+    margin: 6px 0 10px;
+    color: var(--ribbon-deep);
+    font-size: 11.5px;
+    font-weight: 600;
+  }
+  .ribbon-divider::before, .ribbon-divider::after{
+    content:"";
+    flex:1;
+    height: 1px;
+    background: var(--ribbon);
+    opacity: 0.4;
+  }
+
+  /* ---------- Screen 3: Chat ---------- */
+  .spoiler-bar{
+    margin: 4px 16px 12px;
+    background: rgba(79,120,103,0.18);
+    border: 1px solid rgba(79,120,103,0.5);
+    border-radius: 12px;
+    padding: 9px 12px;
+    font-size: 11.5px;
+    color: #bcdfd0;
+    display:flex;
+    align-items:center;
+    gap: 8px;
+  }
+
+  .chat-body{
+    flex:1;
+    padding: 6px 16px 12px;
+    overflow-y:auto;
+    display:flex;
+    flex-direction:column;
+    gap: 14px;
+  }
+  .bubble-row{ display:flex; }
+  .bubble-row.user{ justify-content:flex-end; }
+  .bubble{
+    max-width: 78%;
+    padding: 11px 14px;
+    font-size: 13.5px;
+    line-height: 1.45;
+  }
+  .bubble.buddy{
+    background: var(--linen);
+    color: var(--charcoal);
+    border-radius: 4px 16px 16px 16px;
+    position: relative;
+  }
+  .bubble.buddy::before{
+    content:"";
+    position:absolute;
+    left:-6px; top:0;
+    width: 6px; height: 18px;
+    background: var(--ribbon);
+    border-radius: 3px 0 0 3px;
+  }
+  .bubble.user{
+    background: var(--ink-soft);
+    color: var(--linen);
+    border-radius: 16px 4px 16px 16px;
+  }
+  .buddy-label{
+    font-size: 10.5px;
+    font-weight: 700;
+    color: var(--ribbon-deep);
+    margin-bottom: 3px;
+    text-transform: none;
+  }
+  .cite{
+    display:inline-block;
+    margin-top: 8px;
+    font-size: 11px;
+    color: var(--charcoal-soft);
+    font-style: italic;
+  }
+
+  .quick-row{
+    padding: 0 16px 10px;
+    display:flex;
+    gap: 8px;
+    overflow-x:auto;
+  }
+  .quick-chip{
+    flex-shrink:0;
+    font-size: 12px;
+    padding: 8px 13px;
+    border-radius: 100px;
+    background: rgba(241,236,224,0.09);
+    white-space:nowrap;
+  }
+
+  .input-bar{
+    margin: 0 16px 18px;
+    background: var(--ink-soft);
+    border-radius: 100px;
+    padding: 6px 6px 6px 16px;
+    display:flex;
+    align-items:center;
+    gap: 10px;
+  }
+  .input-bar input{
+    background:none; border:none; outline:none;
+    color: var(--linen);
+    font-family:'Work Sans', sans-serif;
+    font-size: 13.5px;
+    flex:1;
+  }
+  .send-btn{
+    width: 34px; height: 34px;
+    border-radius: 50%;
+    background: var(--lamp);
+    color: #241a08;
+    display:flex; align-items:center; justify-content:center;
+    font-size: 14px;
+    flex-shrink:0;
+  }
+
+  .notes{
+    max-width: 1200px;
+    margin: 72px auto 0;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+  }
+  .note h4{
+    font-family:'Fraunces', serif;
+    font-weight: 500;
+    font-size: 16px;
+    margin: 0 0 8px;
+    color: var(--lamp);
+  }
+  .note p{
+    font-size: 13.5px;
+    line-height: 1.6;
+    color: #b7bad2;
+    margin:0;
+  }
+
+  @media (max-width: 720px){
+    .stage{ gap: 32px; }
+    .phone{ width: 280px; height: 588px; }
+    .intro h1{ font-size: 32px; }
+    .notes{ grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="intro">
+  <p class="eyebrow">Book Buddy — UX reference</p>
+  <h1>A companion that only knows as much of the story as you do.</h1>
+  <p>Three core screens for the Flutter build: the shelf where a session starts, the chapter map where progress and spoiler boundaries live side by side, and the chat where the buddy answers — always scoped to what's already been read.</p>
+</div>
+
+<div class="stage">
+
+  <!-- SCREEN 1: LIBRARY -->
+  <div class="screen-col">
+    <div class="phone">
+      <div class="screen">
+        <div class="notch"></div>
+        <div class="status-space"></div>
+        <div class="topbar">
+          <div class="topbar-row">
+            <div class="app-title">Your shelf</div>
+            <div class="icon-btn">+</div>
+          </div>
+        </div>
+        <div class="library-body">
+          <div class="continue-card">
+            <div class="tag">CONTINUE READING</div>
+            <h3>The Wrenfield Inheritance</h3>
+            <div class="meta">Chapter 7 of 22 · Iris Vantry</div>
+            <div class="progress-track"><div class="progress-fill"></div></div>
+            <div class="continue-btn">Open Chapter 7 →</div>
+          </div>
+
+          <div class="section-label">Also on your shelf</div>
+          <div class="shelf-grid">
+            <div class="book b1">Salt &amp; Ember</div>
+            <div class="book b2">The Quiet Coast</div>
+            <div class="book b3">Marrow Street</div>
+            <div class="book b4">A Longer Dusk</div>
+            <div class="book b5">Fen Country</div>
+            <div class="book b6">Glasshouse</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="screen-label">1 — The shelf</div>
+  </div>
+
+  <!-- SCREEN 2: CHAPTER MAP -->
+  <div class="screen-col">
+    <div class="phone">
+      <div class="screen">
+        <div class="notch"></div>
+        <div class="status-space"></div>
+        <div class="book-hero">
+          <div class="kicker">The Wrenfield Inheritance</div>
+          <h2>Reading progress</h2>
+          <div class="chip-row">
+            <div class="chip primary">Ask your buddy</div>
+            <div class="chip">Catch me up</div>
+          </div>
+        </div>
+        <div class="chapter-list">
+          <div class="chapter-list-title">CHAPTERS</div>
+
+          <div class="chapter-row">
+            <div class="chapter-dot done">✓</div>
+            <div class="chapter-text"><div class="name">6 · The Locked Study</div><div class="sub">Read</div></div>
+          </div>
+          <div class="chapter-row">
+            <div class="chapter-dot current">7</div>
+            <div class="chapter-text"><div class="name">7 · A Letter, Unsent</div><div class="sub">Reading now</div></div>
+          </div>
+
+          <div class="ribbon-divider">BUDDY'S KNOWLEDGE ENDS HERE</div>
+
+          <div class="chapter-row locked">
+            <div class="chapter-dot locked">8</div>
+            <div class="chapter-text"><div class="name">8 · The Second Will</div><div class="sub">Not yet read</div></div>
+          </div>
+          <div class="chapter-row locked">
+            <div class="chapter-dot locked">9</div>
+            <div class="chapter-text"><div class="name">9 · Wrenfield at Night</div><div class="sub">Not yet read</div></div>
+          </div>
+          <div class="chapter-row locked">
+            <div class="chapter-dot locked">10</div>
+            <div class="chapter-text"><div class="name">10 · What the Housekeeper Knew</div><div class="sub">Not yet read</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="screen-label">2 — The chapter map</div>
+  </div>
+
+  <!-- SCREEN 3: CHAT -->
+  <div class="screen-col">
+    <div class="phone">
+      <div class="screen">
+        <div class="notch"></div>
+        <div class="status-space"></div>
+        <div class="topbar">
+          <div class="topbar-row">
+            <div class="app-title">Buddy</div>
+            <div class="icon-btn">⋯</div>
+          </div>
+        </div>
+        <div class="spoiler-bar">🔖 Only knows up to Chapter 7 — nothing later can slip through.</div>
+
+        <div class="chat-body">
+          <div class="bubble-row">
+            <div class="bubble buddy">
+              <div class="buddy-label">BUDDY</div>
+              Chapter 7 today — that letter Marguerite finds is doing a lot of quiet work. What's on your mind?
+            </div>
+          </div>
+          <div class="bubble-row user">
+            <div class="bubble user">Wait, who is Corliss again? I forgot.</div>
+          </div>
+          <div class="bubble-row">
+            <div class="bubble buddy">
+              <div class="buddy-label">BUDDY</div>
+              He's the Wrenfield family solicitor — first showed up in Chapter 3, handling the original will. That's likely why he's the one holding the letter now.
+              <div class="cite">from Chapter 3 &amp; 7</div>
+            </div>
+          </div>
+          <div class="bubble-row user">
+            <div class="bubble user">catch me up on ch 7 so far</div>
+          </div>
+        </div>
+
+        <div class="quick-row">
+          <div class="quick-chip">Catch me up</div>
+          <div class="quick-chip">Explain that line</div>
+          <div class="quick-chip">Who is this?</div>
+          <div class="quick-chip">Just chatting</div>
+        </div>
+
+        <div class="input-bar">
+          <input type="text" placeholder="Ask about what you've read..." />
+          <div class="send-btn">↑</div>
+        </div>
+      </div>
+    </div>
+    <div class="screen-label">3 — The chat</div>
+  </div>
+
+</div>
+
+<div class="notes">
+  <div class="note">
+    <h4>The ribbon is the spoiler boundary</h4>
+    <p>The chapter map shows a physical divider — "Buddy's knowledge ends here" — right where progress stops. It's the same filter enforced in the C retrieval layer, made visible so trust in the spoiler-safety isn't just implied, it's shown.</p>
+  </div>
+  <div class="note">
+    <h4>Marginalia, not a generic chat app</h4>
+    <p>Buddy's replies carry a small ribbon tab and an optional citation line, echoing a note left in the margin of a book rather than a typical messaging bubble — reinforcing "companion," not "search bar."</p>
+  </div>
+  <div class="note">
+    <h4>Quick chips carry the three modes</h4>
+    <p>Catch me up, clarify, and just chat map directly to the three interaction modes from the architecture — surfaced as one-tap shortcuts so users don't need to phrase a full question to get going.</p>
+  </div>
+</div>
+
+</body>
+</html>
